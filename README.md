@@ -1,4 +1,7 @@
 # Getting Started with Create React App
+The instructions for creating this app is below:
+https://github.com/WDI-203/A--Fullstack-intro-instructions/blob/main/instructions.md
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

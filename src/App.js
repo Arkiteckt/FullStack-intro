@@ -43,17 +43,28 @@ const sampleBlogs = [
 
 const urlEndpoint = process.env.REACT_APP_URL_ENDPOINT; //5
 const App = () => {
-  useEffect(()=>{
+  // useEffect(()=>{
+  //   const fetchBlogs = async () => {
+  //     const result = await fetch(
+  //       `${urlEndpoint}/blogs` //8
+  //     );
+  //     const blogs = await result.json(); //9
+  //     console.log(blogs)
+  //     setBlogs(blogs);
+  //      };
+  //      fetchBlogs();
+  // }); //6 Understand the effect of the empty array!
+  useEffect(() => {
     const fetchBlogs = async () => {
       const result = await fetch(
-        `${urlEndpoint}/blogs` //8
+        `${urlEndpoint}/blogs`
       );
-      const blogs = await result.json(); //9
+      const blogs = await result.json();
       console.log(blogs)
       setBlogs(blogs);
-       };
-       fetchBlogs();
-  }); //6 Understand the effect of the empty array!
+    };
+    fetchBlogs();
+  }, []);
 
   const [blogs, setBlogs] = useState([...sampleBlogs]);
   console.log(blogs);
@@ -65,17 +76,19 @@ const App = () => {
 }
 
 const BlogListCard = (props) => {
-  console.log(props)
+  // console.log(props)
+  const {blog} = props;
   return (
 		<div>
-    <h2>Title of blog</h2>
-    <p>Author of blog</p>
-    <p>Text of blog</p>
+    <h2>{blog.title}</h2> 
+    <p>{blog.author}</p>
+    <p>{blog.text}</p>
 		</div>
   );
 };
 const BlogList = (props) => {
-  console.log(props)
+  const {blog} = props;
+  // console.log(props)
   const blogs = props.blogs 
   console.log(blogs)
   return (
