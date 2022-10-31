@@ -43,6 +43,12 @@ const sampleBlogs = [
 
 const urlEndpoint = process.env.REACT_APP_URL_ENDPOINT; //5
 const App = () => {
+  const [urlParamString, seturlParamString]= useState ("");
+  const generateUrlParams = (limit, page, sortBy, order) => {
+    let urlParams = " ";
+    str.concat("?limit=4&page=3&sortBy=createdAt&order=asc") //For each of the four function parameters limit, page, sortBy and order
+    seturlParamString = urlParamString; //Finally, call the setter function setUrlParamString with urlParams passed as an argument 
+  }
   // useEffect(()=>{
   //   const fetchBlogs = async () => {
   //     const result = await fetch(
@@ -57,14 +63,14 @@ const App = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       const result = await fetch(
-        `${urlEndpoint}/blogs`
+        `${urlEndpoint}/blogs${urlParamString}`
       );
       const blogs = await result.json();
       console.log(blogs)
       setBlogs(blogs);
     };
     fetchBlogs();
-  }, []);
+  }, [urlParams]); //New item in the dependency array
 
   const [blogs, setBlogs] = useState([...sampleBlogs]);
   console.log(blogs);
@@ -86,6 +92,9 @@ const BlogListCard = (props) => {
 		</div>
   );
 };
+<OptionBar
+	generateUrlParams={generateUrlParams}
+/> //6 Review this
 const BlogList = (props) => {
   const {blog} = props;
   // console.log(props)
@@ -96,6 +105,43 @@ const BlogList = (props) => {
     {blogs.map((blog, index) => {
 	return <BlogListCard blog={blog} key={index} />;
 })}    </div>
+  );
+};
+
+function OptionBar(props) {
+  useEffect(()=>{
+    generateUrlParams(limit, page, sortBy, order)
+  }, [limit, page, sortBy, order])
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState("")
+  const [order, setOrder] = useState("")
+  return(
+    <div>
+<label>Limit:</label>
+<input type="number" value={limit} onChange={(e)=>{
+	setLimit(e.target.value)
+}}/>
+ <label>Page</label>
+ <input type="number" value={page} onChange={(e)=>{
+  setPage(e.target.value)
+ }}/>
+ <label>SortBy</label>
+ <select name="field name" value={sortBy} onChange={(e)=>{// double check this line of code
+  setSortBy(e.target.value)
+  }}/>
+ <option></option>
+<option value="id">id</option>
+<option value="title">title</option>
+<option value="createdAt">createdAt</option>
+
+<select name="field name" value={order} onChange={(e)=>{// double check this line of code
+  setOrder(e.target.value)
+  }}/>
+   <option></option>
+<option value="asc">id</option>
+<option value="desc">title</option>
+</div>
   );
 };
 

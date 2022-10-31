@@ -2,6 +2,8 @@
 The instructions for creating this app is below:
 https://github.com/WDI-203/A--Fullstack-intro-instructions/blob/main/instructions.md
 
+Part 2: https://github.com/WDI-203/A--Fullstack-intro-instructions/blob/main/Pt_2.md
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
